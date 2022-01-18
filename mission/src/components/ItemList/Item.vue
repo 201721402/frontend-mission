@@ -1,6 +1,5 @@
 <template>
-  <div class="item-list-item w3-container" @click="$router.push({ name:'Item',
-    params: { ItemIds: ItemId }})">
+  <div class="item-list-item w3-container">
     <div class="w3-panel">
       <img class="w3-round-large" :src="img" />
     </div>
@@ -27,12 +26,11 @@
 export default {
   name: 'ItemListItem',
   props: {
-    ItemId: { type: Number, default: 0 },
     name: { type: String, default: '' },
     price: { type: Number, default: 0 },
     img: {
       type: String,
-      default: 'https://cdn-images.farfetch-contents.com/14/16/46/74/14164674_21073031_600.jpg',
+      default: '',
     },
     original_price: { type: Number, default: -1 },
     description: { type: String, default: '' },
