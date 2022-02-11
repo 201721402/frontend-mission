@@ -1,5 +1,7 @@
 <template>
-  <router-view />
+  <router-view name="header"></router-view>
+  <router-view name="main"></router-view>
+  <router-view name="nav"></router-view>
 </template>
 
 <script>

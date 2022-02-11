@@ -93,49 +93,19 @@
 </template>
 
 <script>
+import ItemModel from '@/model/ItemInfoItem';
+import ItemApi from '@/api/Item/ItemApi';
+
 export default {
   name: 'ItemInfoPage',
   data() {
     return {
-      product_no: 1,
-      name: 'airmag Sneakers',
-      image: 'https://cdn-images.farfetch-contents.com/14/16/46/74/14164674_21073031_600.jpg',
-      price: 230400,
-      original_price: 300000,
-      description: `<div><p><strong>nike's new collaboration</strong></p>
-      <img style="width: 100%;" src="https://i.ytimg.com/vi/NimGxU4Qnhk/maxresdefault.jpg"/>
-      <img style="width: 100%;" src="https://footwearnews.com/wp-content/uploads/2017/10/nike-mag-heritage-auctions7.jpg?w=700&h=437&crop=1"/>
-      <p>미래 지향적 디자인이 녹여든 나이키 에어 맥 신발과 함께 해요!</p></div>`,
-      seller: {
-        seller_no: 1,
-        name: '나이키 운동화',
-        hash_tags: ['남성', '운동화'],
-        profile_image: 'https://www.diethelmtravel.com/wp-content/uploads/2016/04/bill-gates-wealthiest-person.jpg',
-      },
-      reviews: [
-        {
-          review_no: 1,
-          writer: 'ekco***',
-          title: '만족해요',
-          content: '미래 지향적 디자인이군요 ',
-          likes_count: 20,
-          created: '2022. 02. 04',
-          img: 'https://i.pinimg.com/474x/b6/93/bb/b693bb579d40e57f0cd98e7349869e3c--futuristic-shoes-marty-mcfly.jpg',
-        },
-        {
-          review_no: 1,
-          writer: 'll***',
-          title: '무한 만족',
-          content: '배송도 빠르고 만족합니다.',
-          likes_count: 14,
-          created: '2021. 12. 25',
-        },
-      ],
+      item: ItemModel,
     };
   },
   methods: {
     isDiscounted() {
-      return Object.prototype.hasOwnProperty.call(this.$data, 'original_price');
+      return this.item.original_price !== -1;
     },
     priceStringWithComma(value) {
       return `${value.toLocaleString()}원`;
@@ -146,9 +116,18 @@ export default {
   },
   computed: {
     display_discount_rate() {
-      const rate = ((this.original_price - this.price) / this.original_price) * 100;
+      if (this.item.original_price === undefined) {
+        return '0%';
+      }
+      const rate = ((this.item.original_price - this.item.price) / this.item.original_price) * 100;
       return `${Number.prototype.toFixed.call(rate, 0)}%`;
     },
+  },
+  async created() {
+    const apiClient = new ItemApi();
+    const response = await apiClient.getItemInfo(this.product_no);
+    const originalItem = this.item;
+    this.item = Object.assign(originalItem, response.data.item);
   },
 };
 </script>

@@ -27,7 +27,7 @@
 export default {
   name: 'ItemListItem',
   props: {
-    ItemId: { type: Number, default: 1 },
+    ItemId: { type: Number, default: 0 },
     name: { type: String, default: '' },
     price: { type: Number, default: 0 },
     img: {
