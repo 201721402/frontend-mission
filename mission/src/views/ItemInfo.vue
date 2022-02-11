@@ -1,18 +1,16 @@
 <template>
   <div id="item-info-page">
     <div class="image-container">
-      <img class="image-placeholder" :src="image" />
+      <img class="image-placeholder" data-test="product-image" :src="item.image" />
     </div>
     <div class="w3-container seller-panel">
-      <img class="w3-circle seller-image" :src="seller.profile_image" />
+      <img class="w3-circle seller-image" data-test="seller-image" :src="item.seller.profile_image" />
       <div class="seller-info">
-        <div>
-          <strong>{{ seller.name }}</strong>
+        <div data-test="seller-name">
+          <strong>{{ item.seller.name }}</strong>
         </div>
-        <div class="tag-container">
-          <div class="w3-left" v-for="tag in seller.hash_tags" :key="tag">
-            #{{ tag }}
-          </div>
+        <div class="tag-container" data-test="seller-hashtags">
+          <div class="w3-left" v-for="tag in item.seller.hash_tags" :key="tag">#{{ tag }}</div>
         </div>
       </div>
       <span style="font-size: 30px; padding-top: 10px; padding-bottom: 10px">
@@ -20,21 +18,23 @@
       </span>
     </div>
     <div class="w3-container">
-      <h2 data-test="name">{{ name }}</h2>
+      <h2 data-test="name">{{ item.name }}</h2>
       <div class="price-container">
         <div
           v-if="isDiscounted()"
           data-test="discount-rate"
           class="w3-left price"
           id="discount"
-        >
-          {{ display_discount_rate }}
-        </div>
+        >{{ display_discount_rate }}</div>
         <div class="w3-left price" data-test="price">
-          {{ priceStringWithComma(isDiscounted() ? price : original_price) }}
+          {{
+            priceStringWithComma(
+              isDiscounted() ? item.price : item.original_price
+            )
+          }}
         </div>
         <div v-if="isDiscounted()" class="w3-left" id="original">
-          <del>{{ priceStringWithComma(original_price) }}</del>
+          <del>{{ priceStringWithComma(item.original_price) }}</del>
         </div>
       </div>
     </div>
@@ -43,38 +43,22 @@
         <h4>상품정보</h4>
       </div>
       <div class="w3-row">
-        <html v-html="description"></html>
+        <div data-test="description" v-html="item.description"></div>
       </div>
       <div class="w3-row">
         <h4>리뷰</h4>
       </div>
       <div id="reviews">
-        <div
-          class="review w3-row"
-          v-for="review in reviews"
-          :key="review.review_no"
-        >
+        <div class="review w3-row" v-for="review in item.reviews" :key="review.review_no">
           <div class="review-text">
             <div class="review-row-1">
-              <div class="review-writer" data-test="review-writer">
-                {{ review.writer }}
-              </div>
-              <div class="review-created" data-test="review-created">
-                {{ review.created }}
-              </div>
+              <div class="review-writer" data-test="review-writer">{{ review.writer }}</div>
+              <div class="review-created" data-test="review-created">{{ review.created }}</div>
             </div>
-            <div class="review-title" data-test="review-title">
-              {{ review.title }}
-            </div>
-            <div class="review-content" data-test="review-content">
-              {{ review.content }}
-            </div>
+            <div class="review-title" data-test="review-title">{{ review.title }}</div>
+            <div class="review-content" data-test="review-content">{{ review.content }}</div>
           </div>
-          <div
-            v-if="doesReviewImgExists(review)"
-            class="review-img"
-            data-test="review-img"
-          >
+          <div v-if="doesReviewImgExists(review)" class="review-img" data-test="review-img">
             <img class="w3-right" :src="review.img" />
           </div>
         </div>
@@ -84,17 +68,15 @@
           id="btn-pruchase"
           class="w3-round-large"
           data-test="footer-price"
-        >
-          {{ `${priceStringWithComma(price)} 구매` }}
-        </button>
+        >{{ `${priceStringWithComma(item.price)} 구매` }}</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ItemModel from '@/model/ItemInfoItem';
 import ItemApi from '@/api/Item/ItemApi';
+import ItemModel from '@/model/ItemInfoItem';
 
 export default {
   name: 'ItemInfoPage',
@@ -119,6 +101,7 @@ export default {
       if (this.item.original_price === undefined) {
         return '0%';
       }
+
       const rate = ((this.item.original_price - this.item.price) / this.item.original_price) * 100;
       return `${Number.prototype.toFixed.call(rate, 0)}%`;
     },
@@ -149,7 +132,7 @@ export default {
 }
 
 .seller-panel {
-  padding-top: 142px;
+  padding-top: 10px;
   padding-bottom: 10px;
   display: flex;
   align-items: center;
