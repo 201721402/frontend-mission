@@ -2,9 +2,10 @@
   <nav id="item-list-nav">
     <ul>
       <!-- TODO router-link 필요 -->
-      <li><i class="fas fa-home" /><span>홈</span></li>
+      <li><i class="fas fa-home" /><span @click="$router.push({name:'Home'})">홈</span></li>
       <li><i class="fas fa-heart" /><span>찜</span></li>
-      <li><i class="fas fa-shopping-cart" /><span>장바구니</span></li>
+      <li><i class="fas fa-shopping-cart" /><span @click="$router.push({name:'Cart'})">
+        장바구니</span></li>
       <li><i class="fas fa-user" /><span>마이 페이지</span></li>
     </ul>
   </nav>

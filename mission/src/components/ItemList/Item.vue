@@ -61,7 +61,6 @@ div.price-container > p {
 }
 
 img {
-  /* TODO img 사이즈 고정 필요? (온기에서 했던 것대로 하면 될 것 같은데 */
   border: 1px solid black;
   width: 100%;
 }

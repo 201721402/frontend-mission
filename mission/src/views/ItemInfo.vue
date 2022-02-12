@@ -4,7 +4,8 @@
       <img class="image-placeholder" data-test="product-image" :src="item.image" />
     </div>
     <div class="w3-container seller-panel">
-      <img class="w3-circle seller-image" data-test="seller-image" :src="item.seller.profile_image" />
+      <img class="w3-circle seller-image" data-test="seller-image"
+      :src="item.seller.profile_image" />
       <div class="seller-info">
         <div data-test="seller-name">
           <strong>{{ item.seller.name }}</strong>

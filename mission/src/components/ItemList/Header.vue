@@ -5,7 +5,7 @@
     id="item-list-header"
   >
     <i class="fas fa-user icon-hidden"></i>
-    <h3>My Shopping Mall</h3>
+    <h3>ReSell</h3>
     <div>
       <i class="fas fa-search" id="btn-search" />
     </div>
