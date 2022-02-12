@@ -25,8 +25,8 @@
         <i class="bi bi-cash-coin"></i>
         계좌이체
     </div>
-    <div class="buy-Button" @click="$router.push({name:'Order'})">
-        <button>구매하러 가기</button>
+    <div class="buy-Button" @click="$router.push({name:'Complete'})">
+        <button>주문하기</button>
   </div>
   </main>
 </template>
