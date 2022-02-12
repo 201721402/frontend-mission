@@ -23,25 +23,28 @@
 
 <script>
 import ItemListItem from '@/components/ItemList/Item.vue';
-import ItemApi from '@/api/Item/ItemApi';
 
 export default {
   components: { ItemListItem },
   name: 'ItemListPage',
   data() {
     return {
-      items: [],
+      items: [
+        {
+          productNo: 'abcd123',
+          name: 'Nike air force',
+          price: 134000,
+          image: 'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQTTGEwPIvXX6CJsLGpzvAj1ciUXRFlUJtdp3WyUoJM1HewTHdPkRpCk8FP6WwcWvH9807c2qmqaQ&usqp=CAc',
+          original_price: 150000,
+          description: '신상 나이키 신발',
+        },
+      ],
     };
   },
   methods: {
     itemPath(productNo) {
       return `/item/${productNo}`;
     },
-  },
-  async created() {
-    const apiClient = new ItemApi();
-    const response = await apiClient.getItemList();
-    this.items = response.data.items;
   },
 };
 </script>

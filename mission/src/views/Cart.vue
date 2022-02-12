@@ -19,6 +19,10 @@
     </ItemListItem>
     </router-link>
   </div>
+  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+  <div id="buy-Button" @click="$router.push({name:'Order'})">
+    <button>구매하러 가기</button>
+  </div>
 </template>
 
 <script>
@@ -52,5 +56,8 @@ export default {
 <style>
 #cart-list {
   padding-bottom: 60px;
+}
+#buy-Button{
+  text-align: center;
 }
 </style>

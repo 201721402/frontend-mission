@@ -4,6 +4,8 @@ import WishListPage from '@/views/WishList.vue';
 
 import CartPage from '@/views/Cart.vue';
 import InfoPage from '@/views/Info.vue';
+import OrderPage from '@/views/Order.vue';
+import OrderCompletePage from '@/views/OrderComplete.vue';
 
 export default [
   {
@@ -31,6 +33,20 @@ export default [
       header: ItemListHeader,
       main: CartPage,
       nav: ItemListNav,
+    },
+  },
+  {
+    path: '/order',
+    name: 'Order',
+    components: {
+      main: OrderPage,
+    },
+  },
+  {
+    path: '/complete',
+    name: 'Complete',
+    components: {
+      main: OrderCompletePage,
     },
   },
 ];
