@@ -1,18 +1,16 @@
 <template>
   <div id="item-info-page">
     <div class="image-container">
-      <img class="image-placeholder" :src="image" />
+      <img class="image-placeholder" data-test="product-image" :src="item.image" />
     </div>
     <div class="w3-container seller-panel">
-      <img class="w3-circle seller-image" :src="seller.profile_image" />
+      <img class="w3-circle seller-image" data-test="seller-image" :src="item.seller.profile_image" />
       <div class="seller-info">
-        <div>
-          <strong>{{ seller.name }}</strong>
+        <div data-test="seller-name">
+          <strong>{{ item.seller.name }}</strong>
         </div>
-        <div class="tag-container">
-          <div class="w3-left" v-for="tag in seller.hash_tags" :key="tag">
-            #{{ tag }}
-          </div>
+        <div class="tag-container" data-test="seller-hashtags">
+          <div class="w3-left" v-for="tag in item.seller.hash_tags" :key="tag">#{{ tag }}</div>
         </div>
       </div>
       <span style="font-size: 30px; padding-top: 10px; padding-bottom: 10px">
@@ -20,21 +18,23 @@
       </span>
     </div>
     <div class="w3-container">
-      <h2 data-test="name">{{ name }}</h2>
+      <h2 data-test="name">{{ item.name }}</h2>
       <div class="price-container">
         <div
           v-if="isDiscounted()"
           data-test="discount-rate"
           class="w3-left price"
           id="discount"
-        >
-          {{ display_discount_rate }}
-        </div>
+        >{{ display_discount_rate }}</div>
         <div class="w3-left price" data-test="price">
-          {{ priceStringWithComma(isDiscounted() ? price : original_price) }}
+          {{
+            priceStringWithComma(
+              isDiscounted() ? item.price : item.original_price
+            )
+          }}
         </div>
         <div v-if="isDiscounted()" class="w3-left" id="original">
-          <del>{{ priceStringWithComma(original_price) }}</del>
+          <del>{{ priceStringWithComma(item.original_price) }}</del>
         </div>
       </div>
     </div>
@@ -43,38 +43,22 @@
         <h4>상품정보</h4>
       </div>
       <div class="w3-row">
-        <html v-html="description"></html>
+        <div data-test="description" v-html="item.description"></div>
       </div>
       <div class="w3-row">
         <h4>리뷰</h4>
       </div>
       <div id="reviews">
-        <div
-          class="review w3-row"
-          v-for="review in reviews"
-          :key="review.review_no"
-        >
+        <div class="review w3-row" v-for="review in item.reviews" :key="review.review_no">
           <div class="review-text">
             <div class="review-row-1">
-              <div class="review-writer" data-test="review-writer">
-                {{ review.writer }}
-              </div>
-              <div class="review-created" data-test="review-created">
-                {{ review.created }}
-              </div>
+              <div class="review-writer" data-test="review-writer">{{ review.writer }}</div>
+              <div class="review-created" data-test="review-created">{{ review.created }}</div>
             </div>
-            <div class="review-title" data-test="review-title">
-              {{ review.title }}
-            </div>
-            <div class="review-content" data-test="review-content">
-              {{ review.content }}
-            </div>
+            <div class="review-title" data-test="review-title">{{ review.title }}</div>
+            <div class="review-content" data-test="review-content">{{ review.content }}</div>
           </div>
-          <div
-            v-if="doesReviewImgExists(review)"
-            class="review-img"
-            data-test="review-img"
-          >
+          <div v-if="doesReviewImgExists(review)" class="review-img" data-test="review-img">
             <img class="w3-right" :src="review.img" />
           </div>
         </div>
@@ -84,57 +68,26 @@
           id="btn-pruchase"
           class="w3-round-large"
           data-test="footer-price"
-        >
-          {{ `${priceStringWithComma(price)} 구매` }}
-        </button>
+        >{{ `${priceStringWithComma(item.price)} 구매` }}</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import ItemApi from '@/api/Item/ItemApi';
+import ItemModel from '@/model/ItemInfoItem';
+
 export default {
   name: 'ItemInfoPage',
   data() {
     return {
-      product_no: 1,
-      name: '핏이 좋은 수트',
-      image: 'https://projectlion-vue.s3.ap-northeast-2.amazonaws.com/items/suit-1.png',
-      price: 198000,
-      original_price: 298000,
-      description: `<div><p><strong>체형에 관계없이 누구에게나 맞는 수트!</strong></p>
-      <img style="width: 100%;" src="https://projectlion-vue.s3.ap-northeast-2.amazonaws.com/items/suit-2.png"/>
-      <p>연말 송년회에 아주 어울릴 수트 판매합니다!</p></div>`,
-      seller: {
-        seller_no: 1,
-        name: '대한양복',
-        hash_tags: ['남성', '수트'],
-        profile_image: 'https://projectlion-vue.s3.ap-northeast-2.amazonaws.com/sellers/seller.png',
-      },
-      reviews: [
-        {
-          review_no: 1,
-          writer: 'lk***',
-          title: '만족해요',
-          content: '핏이 아주 잘 맞습니다. 대만족!',
-          likes_count: 7,
-          created: '2021. 12. 04',
-          img: 'https://projectlion-vue.s3.ap-northeast-2.amazonaws.com/items/example.jpg',
-        },
-        {
-          review_no: 1,
-          writer: 'll***',
-          title: '만족해요2',
-          content: '배송도 빠르고 만족합니다.',
-          likes_count: 5,
-          created: '2021. 12. 05',
-        },
-      ],
+      item: ItemModel,
     };
   },
   methods: {
     isDiscounted() {
-      return Object.prototype.hasOwnProperty.call(this.$data, 'original_price');
+      return this.item.original_price !== -1;
     },
     priceStringWithComma(value) {
       return `${value.toLocaleString()}원`;
@@ -145,9 +98,19 @@ export default {
   },
   computed: {
     display_discount_rate() {
-      const rate = ((this.original_price - this.price) / this.original_price) * 100;
+      if (this.item.original_price === undefined) {
+        return '0%';
+      }
+
+      const rate = ((this.item.original_price - this.item.price) / this.item.original_price) * 100;
       return `${Number.prototype.toFixed.call(rate, 0)}%`;
     },
+  },
+  async created() {
+    const apiClient = new ItemApi();
+    const response = await apiClient.getItemInfo(this.product_no);
+    const originalItem = this.item;
+    this.item = Object.assign(originalItem, response.data.item);
   },
 };
 </script>
