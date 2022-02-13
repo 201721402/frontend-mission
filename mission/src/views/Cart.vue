@@ -2,13 +2,12 @@
   <h3 style="padding-left:30px">장바구니</h3>
   <div id="cart-list" data-test="cart-list">
     <router-link
-      v-for="item in cartItem"
-      :to="itemPath(item.productCode)"
+      v-for="item in CartItem"
+      :to="itemPath(item.productNo)"
       :key="item.productCode"
     >
     <ItemListItem
-      v-for="item in cartItem"
-      :key="item.productCode"
+      :key="item.productNo"
       :name="item.name"
       :price="item.price"
       :img="item.image"
@@ -39,7 +38,7 @@ export default {
   },
   computed: {
     ...mapState({
-      cartItem: (state) => state.cartItem,
+      CartItem: (state) => state.CartItem,
     }),
   },
 };

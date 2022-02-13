@@ -32,7 +32,7 @@ export default {
     price: { type: Number, default: 0 },
     img: {
       type: String,
-      default: 'https://cdn-images.farfetch-contents.com/14/16/46/74/14164674_21073031_600.jpg',
+      default: null,
     },
     original_price: { type: Number, default: -1 },
     description: { type: String, default: '' },
