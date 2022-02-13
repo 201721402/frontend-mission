@@ -41,7 +41,7 @@ export default {
   computed: {
     countData() {
       if (this.$store.getters.CartItemCount === 1) {
-        return '이고 ';
+        return '입니다. ';
       }
       return `등 ${this.$store.getters.CartItemCount - 1} 건`;
     },

@@ -8,11 +8,11 @@ export default createStore({
     MainItem: [
       {
         productNo: '1',
-        name: 'Air Jordan',
+        name: 'Nike Waffle',
         price: 2000000,
         original_price: 15000000,
-        image: 'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTaqkWe7q2EpLZi1Gm2QR-ue0jCpbCCSYt1GwKTQ8a8Fk5U3M_9d_Df486_FqCk39LW4rl1VtqO_fOM&usqp=CAc',
-        description: '최고의 러닝화 nike shoes ',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMY5NjRkdD3ChyIKuuh0d33QcddYCpfaxw1w&usqp=CAU',
+        description: 'Waffle 초특가 할인',
       },
       {
         productNo: '2',
@@ -20,25 +20,17 @@ export default createStore({
         price: 134000,
         image: 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQ6GrbcKwnqEOKnPs2EexzTnaGVWH4TQn59Jah1ffkh67Gs3sYPu_LTGzYpdVxtMZUJY8ehAqzp0aw&usqp=CAc',
         original_price: 150000,
-        description: '신상 나이키 신발',
+        description: '신상 나이키 Blazer',
       },
     ],
     CartItem: [
       {
-        productNo: '1',
-        name: 'Air Jordan',
-        price: 2000000,
-        original_price: 15000000,
-        image: 'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTaqkWe7q2EpLZi1Gm2QR-ue0jCpbCCSYt1GwKTQ8a8Fk5U3M_9d_Df486_FqCk39LW4rl1VtqO_fOM&usqp=CAc',
-        description: '최고의 러닝화 nike shoes ',
-      },
-      {
         productNo: '2',
         name: 'Nike Blazer',
         price: 134000,
         image: 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQ6GrbcKwnqEOKnPs2EexzTnaGVWH4TQn59Jah1ffkh67Gs3sYPu_LTGzYpdVxtMZUJY8ehAqzp0aw&usqp=CAc',
         original_price: 150000,
-        description: '신상 나이키 신발',
+        description: '신상 나이키 Blazer',
       },
     ],
   },
