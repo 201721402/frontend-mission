@@ -32,6 +32,25 @@ export default createStore({
         image: 'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTaqkWe7q2EpLZi1Gm2QR-ue0jCpbCCSYt1GwKTQ8a8Fk5U3M_9d_Df486_FqCk39LW4rl1VtqO_fOM&usqp=CAc',
         description: '최고의 러닝화 nike shoes ',
       },
+      {
+        productNo: '1',
+        name: 'Air Jordan',
+        price: 2000000,
+        original_price: 15000000,
+        image: 'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTaqkWe7q2EpLZi1Gm2QR-ue0jCpbCCSYt1GwKTQ8a8Fk5U3M_9d_Df486_FqCk39LW4rl1VtqO_fOM&usqp=CAc',
+        description: '최고의 러닝화 nike shoes ',
+      },
     ],
+  },
+  getters: {
+    CartItemCount: (state) => state.CartItem.length,
+    PrintFirstName: (state) => state.CartItem[0].name,
+    SumPrice(state) {
+      let sum = 0;
+      for (let i = 0; i < state.CartItem.length; i += 1) {
+        sum += state.CartItem[i].price;
+      }
+      return `${sum.toLocaleString()}원`;
+    },
   },
 });

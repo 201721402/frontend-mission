@@ -2,6 +2,9 @@
   <main class="order-main">
     <h3>주문하기</h3>
     <div>
+        주문한 품명은 {{PrintFirstName}} {{countData}}
+        <br>
+        총 가격: {{SumPrice}}
     </div>
     <div class="order-container">주문자명</div>
         <input type="text">
@@ -35,13 +38,19 @@
 export default {
   components: {},
   name: 'OrderPage',
-  data() {
-    return {
-
-    };
-  },
-  methods: {
-
+  computed: {
+    countData() {
+      if (this.$store.getters.CartItemCount === 1) {
+        return '이고 ';
+      }
+      return `등 ${this.$store.getters.CartItemCount - 1} 건`;
+    },
+    PrintFirstName() {
+      return this.$store.getters.PrintFirstName;
+    },
+    SumPrice() {
+      return this.$store.getters.SumPrice;
+    },
   },
 };
 </script>
